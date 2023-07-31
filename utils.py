@@ -23,7 +23,7 @@ def height_percentage_calc(gender, x_value_min, x_value_max):
     
     
     h_percent = calculate_cdf(x_value_max, mean, std_dev) - calculate_cdf(x_value_min, mean, std_dev)
-    return h_percent * 100
+    return h_percent * 100.0
 
 conv_dict = {0.0: '0.00 Lak', 150000.0: '1.50 Lak', 200000.0: '2.00 Lak', 250000.0: '2.50 Lak', 350000.0: '3.50 Lak', 400000.0: '4.00 Lak', 450000.0: '4.50 Lak', 500000.0: '5.00 Lak', 550000.0: '5.50 Lak', 950000.0: '9.50 Lak', 1000000.0: '10.00 Lak', 1500000.0: '15.00 Lak', 2000000.0: '20.00 Lak', 2500000.0: '25.00 Lak', 5000000.0: '50.00 Lak', 10000000.0: '1.00 Cr', 50000000.0: '5.00 Cr', 100000000.0: '10.00 Cr', 250000000.0: '25.00 Cr', 500000000.0: '50.00 Cr', 1000000000.0: '100.00 Cr', 5000000000.0: '500.00 Cr'}
 conv_dict_rev = {'0.00 Lak': 0.0,

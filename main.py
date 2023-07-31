@@ -5,13 +5,13 @@ from utils import height_percentage_calc, working_ratio, conv_dict, conv_dict_re
 
 
 st.set_page_config(
-    page_title="Dating Delusion Calculator (India)",
+    page_title="Delululu",
     page_icon="🎭",
     menu_items={
         'About': "This App is an approximation and just for fun."
     }
 )
-st.title("Dating Delusion Calculator (India)")
+st.markdown("## Delululu - Dating Delusion Calculator (India)")
 
 with st.sidebar:
     st.markdown("""#### Assumptions ❓❓""")
@@ -19,6 +19,7 @@ with st.sidebar:
     st.write("* Age Distribution isn't applied, i.e. the final number or percentage is total for all the ages.")
     st.write("* Assumed that around 20% of workforce is women and 80% is men.")
     st.write("* Not considering income/wealth distribution over religion, caste or gender.")
+    st.write("* State/Language is also a very important factor which hasn't been used and the results are for whole Indian population.")
 
 
 
@@ -44,12 +45,16 @@ if not any_income_flag:
 
     income_percent = df_income[(df_income["Income Up Boundary"] > sel_income[0]) & (df_income["Income Up Boundary"] <= sel_income[1])]["Percenatge in Income Range"].sum()
     income_number = df_income[(df_income["Income Up Boundary"] > sel_income[0]) & (df_income["Income Up Boundary"] <= sel_income[1])]["No. of Returns"].sum()
+    st.success(f"##### Around **{round(income_percent, 6)}%** of people are in the selected income range.")
+    st.success(f"##### **{round(income_number/100000, 4)}** Lakhs of people lie in the selected income range.")
+
 else:
     income_percent = 100.0
     income_number = "NA"
+    st.success(f"##### Around **{round(income_percent, 6)}%** of people are in the selected income range.")
 
-st.success(f"##### Around **{round(income_percent, 6)}%** of people are in the selected income range.")
-st.success(f"##### **{round(income_number/100000, 3)}** Lakhs of people lie in the selected income range.")
+
+
 st.markdown("""---""")
 
 
@@ -95,9 +100,10 @@ if not any_religion_flag:
     # st.write( caste_percent_final )
 else:
     caste_percent_final = 100.0
+    st.markdown("""---""")
+
 # st.success(f"##### **{caste_percent_final}**% of population lies in the selected castes.")
 
-st.markdown("""---""")
 # Height
 sel_height = st.select_slider("**Select the desired height (in cm):**", options = np.arange(130, 210, 2), value=(140, 200) )
 height_percent = height_percentage_calc(sel_gender, sel_height[0], sel_height[1])
@@ -110,13 +116,14 @@ working_percent =  working_ratio[sel_gender]
 st.markdown("""---""")
 # Final Score
 col1, col2 = st.columns(2)
-total_percent = 100.0 * income_percent / 100 * religion_percent / 100 * working_percent / 1.00 * caste_percent_final / 100 * height_percent / 100
+total_percent = 100.0 * income_percent / 100.0 * religion_percent / 100.0 * working_percent / 1.00 * caste_percent_final / 100 * height_percent / 100
 col1.metric(label=f"**Percentage of Possible {sel_gender}**", value=str(round(total_percent, 6))+"%")
 
 
 if income_number != "NA":
-    total_count = income_number * total_percent
+    total_count = income_number * total_percent / 100
     col2.metric(label=f"**Number of Possible {sel_gender}**", value= total_count)
 
 # df_religion_caste_merged = df1.merge(df2, on='common_column', how='inner')
 
+st.markdown("""---""")
