@@ -12,7 +12,7 @@ st.set_page_config(
     }
 )
 st.markdown("## Delululu - Dating Delusion Calculator (India)")
-
+total_itr_number = 60000000
 with st.sidebar:
     st.markdown("""#### Assumptions ❓❓""")
     st.write("* The Final Percentage shown at the end is based on people who filed ITR (~6crore) and not the total Indian Population.")
@@ -116,12 +116,12 @@ working_percent =  working_ratio[sel_gender]
 st.markdown("""---""")
 # Final Score
 col1, col2 = st.columns(2)
-total_percent = 100.0 * income_percent / 100.0 * religion_percent / 100.0 * working_percent / 1.00 * caste_percent_final / 100 * height_percent / 100
+total_percent = 100.0 * (income_percent / 100.0) * (religion_percent / 100.0) * (working_percent / 1.00) * (caste_percent_final / 100) * (height_percent / 100)
 col1.metric(label=f"**Percentage of Possible {sel_gender}**", value=str(round(total_percent, 6))+"%")
 
 
 if income_number != "NA":
-    total_count = income_number * total_percent / 100
+    total_count = total_itr_number * (total_percent / 100) 
     col2.metric(label=f"**Number of Possible {sel_gender}**", value= total_count)
 
 # df_religion_caste_merged = df1.merge(df2, on='common_column', how='inner')
